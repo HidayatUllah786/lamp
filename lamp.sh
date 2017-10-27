@@ -23,9 +23,9 @@ MARIADB=`rpm -qa mariadb`
 PHP=`rpm -qa php`
 PHPMYADMIN=`rpm -qa phpMyAdmin`
 
-if [ $HTTPD -a $HTTPD -a $PHP -a $PHPMYADMIN ] ;then
-echo " lamp stack was installed"
-else
+if [ ! $HTTPD -a ! $HTTPD -a ! $PHP -a ! $PHPMYADMIN ] ;then
+#echo " lamp stack was installed"
+#else
 HTTPD=`rpm -qa  httpd`
 if [  $HTTPD ] ; then
 echo "httpd already installed"
@@ -56,8 +56,11 @@ echo "phpMyAdmin already installed"
 else
 rpm -iUvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum -y install phpmyadmin
- vi /etc/httpd/conf.d/phpMyAdmin.conf
+cat phpmyadmin.conf > /etc/httpd/conf.d/phpMyAdmin.conf
+systemctl restart httpd
 fi
+else
+echo "lamp stack was installed"
 fi
 elif [ $y == n -o $y == N ] ; then
 exit;
