@@ -46,7 +46,8 @@ PMA=`rpm -qa phpMyAdmin`
 
         echo "PhpMyadmin already installed"
      else
-       yum -y install phpmyadmin
+  yum -y install epel-release      
+ yum -y install phpmyadmin
        cat phpmyadmin.conf > /etc/httpd/conf.d/phpMyAdmin.conf
        systemctl restart httpd
     fi
